@@ -6,10 +6,13 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "",
+  "author": "Zhanpeisov Marat",
   "license": "ISC",
   "dependencies": {
     "@types/inquirer": "^8.2.1",
     "inquirer": "^8.2.4"
+  },
+  "devDependencies": {
+    "@types/node": "^17.0.30"
   }
 }
