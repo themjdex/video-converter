@@ -9,16 +9,33 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.App = void 0;
-const console_logger_1 = require("./out/console-logger/console-logger");
-const ffmpeg_executor_1 = require("./commands/ffmpeg/ffmpeg.executor");
-class App {
-    run() {
+exports.FileService = void 0;
+const fs_1 = require("fs");
+const path_1 = require("path");
+class FileService {
+    isExist(path) {
         return __awaiter(this, void 0, void 0, function* () {
-            new ffmpeg_executor_1.FfmpegExecutor(console_logger_1.ConsoleLogger.getInstance()).execute();
+            try {
+                yield fs_1.promises.stat(path);
+                return true;
+            }
+            catch (_a) {
+                return false;
+            }
+        });
+    }
+    getFilePath(path, name, ext) {
+        if (!(0, path_1.isAbsolute)(path)) {
+            path = (0, path_1.join)(__dirname + '/' + path);
+        }
+        return (0, path_1.join)((0, path_1.dirname)(path) + '/' + name + '.' + ext);
+    }
+    deleteFileIfExist(path) {
+        return __awaiter(this, void 0, void 0, function* () {
+            if (yield this.isExist(path)) {
+                fs_1.promises.unlink(path);
+            }
         });
     }
 }
-exports.App = App;
-const app = new App();
-app.run();
+exports.FileService = FileService;

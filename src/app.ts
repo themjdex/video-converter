@@ -1,8 +1,10 @@
-import { PromptService } from './core/prompt/prompt.service';
+import { ConsoleLogger } from './out/console-logger/console-logger';
+import { FfmpegExecutor } from './commands/ffmpeg/ffmpeg.executor';
+
+
 export class App {
 	async run() {
-		const res = await (new PromptService()).input<number>('Число', 'number');
-		console.log(res);
+		new FfmpegExecutor(ConsoleLogger.getInstance()).execute();
 	}
 }
 
